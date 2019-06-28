@@ -10,6 +10,16 @@ val shapelessVersion = "2.3.3"
 val thriftVersion = "0.11.0"
 val avroVersion = "1.8.2"
 
+publishTo in ThisBuild := {
+  val nexus = "https://artifactory.corp.creditkarma.com:8443/artifactory/"
+  if (version.value.endsWith("SNAPSHOT")) {
+    Some("ETL Snapshots" at nexus + "etl-snapshots")
+  }
+  else {
+    Some("ETL Releases" at nexus + "etl")
+  }
+}
+
 val commenSettings = Seq(
   organization := "org.datacrafts",
   scalaVersion := "2.12.6",
@@ -36,9 +46,9 @@ val commenSettings = Seq(
     pushChanges
   ),
 
-  publishTo := sonatypePublishTo.value,
+//  publishTo := sonatypePublishTo.value,
 
-  publishMavenStyle := true,
+//  publishMavenStyle := true,
 
   licenses := Seq("APL2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
 
